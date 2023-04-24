@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    border: 1px solid red;
+    outline: 1px solid red;
 }
 
 body {
@@ -73,6 +73,9 @@ main {
     letter-spacing: .2vmin;
 }
 
+.disable {
+    pointer-events: none;
+}
 /* header {
     height: 10vh;
     font-size: 9vmin;
