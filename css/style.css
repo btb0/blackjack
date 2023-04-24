@@ -5,6 +5,7 @@
 
 body {
     height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     overflow-x:hidden;
 }
@@ -16,25 +17,47 @@ main {
 
 #blackjack-table {
     display: grid;
-    height: 90vh;
+    height: 100vh;
     background-color: green;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr .3fr;
     /* grid-template-area: ; */
 }
 
-#d-cards {
-    grid-column: span 2;
+#d-cards, #p-cards {
+    display: flex;
+    grid-column: 2;
+    justify-content: center;
 }
 
-#p-cards {
-    grid-column: span 3;
+#card-deck {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.placeholder {
+    height: 30vmin;
+    width: 20vmin;
+    border-radius: 5%;
+    align-self: center;
+    border: .5vmin solid white;
+}
+
+#deck-placeholder {
+    height: 30vmin;
+    width: 20vmin;
+    border-radius: 5%;
+    align-self: center;
+    border: .5vmin solid white;
+    background-color: darkred;
 }
 
 #buttons {
     grid-column: span 3;
 }
 
-header {
+/* header {
     height: 10vh;
-}
+    font-size: 9vmin;
+} */
