@@ -7,6 +7,7 @@ let playerHand
 let dealerHand
 let cardCountValues
 let deck
+let shuffledDeck
 let turn
 let winner
 
@@ -36,7 +37,7 @@ function init() {
     winner = false
     dealCardsBtn.classList.remove('disable')
     createDeck()
-    shuffleDeck()
+    shuffleCards()
     render()
 }
 
@@ -48,18 +49,27 @@ function createDeck() {
     })
 }
 
-function shuffleDeck() {
-
+function shuffleCards() {
+    let tempDeck = [...deck]
+    for (let i = tempDeck.length - 1; i > 0; i--) {
+        let s = Math.floor(Math.random() * (i + 1))
+        let temp = tempDeck[i]
+        tempDeck[i] = tempDeck[s]
+        tempDeck[s] = temp
+    }
+    shuffledDeck = [...tempDeck]
 }
 
-function dealCards(card) {
+function dealCards() {
     for (let i = 0; i < 2; i++) {
-        playerHand.push(deck[0])
-        deck.shift()
-        dealerHand.push(deck[0])
-        deck.shift()
+        playerHand.push(shuffledDeck[0])
+        shuffledDeck.shift()
+        dealerHand.push(shuffledDeck[0])
+        shuffledDeck.shift()
     }
     dealCardsBtn.classList.add('disable')
+    console.log(playerHand)
+    console.log(dealerHand)
 }
 
 function render() {
