@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+    border: 1px solid red;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    overflow-x:hidden;
+}
+
+main {
+    /* display: grid; */
+    justify-content: center;
+}
+
+#blackjack-table {
+    display: grid;
+    height: 90vh;
+    background-color: green;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr .3fr;
+    /* grid-template-area: ; */
+}
+
+#d-cards {
+    grid-column: span 2;
+}
+
+#p-cards {
+    grid-column: span 3;
+}
+
+#buttons {
+    grid-column: span 3;
+}
+
+header {
+    height: 10vh;
+}
