@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    /* border: 1px solid red; */
+    border: 1px solid red;
 }
 
 body {
@@ -24,7 +24,7 @@ main {
     /* grid-template-area: ; */
 }
 
-.d-cards, .p-cards {
+#d-cards, #p-cards {
     display: flex;
     grid-column: 2;
     justify-content: center;
@@ -42,6 +42,12 @@ main {
     border-radius: 5%;
     align-self: center;
     border: .5vmin solid white;
+}
+
+.scores {
+    margin: 5vmin;
+    grid-column: 1;
+    grid-row: 1;
 }
 
 /* #deck-placeholder {
