@@ -6,22 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blackjack</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/card-library/css/cardstarter.css">
     <script defer src="js/script.js"></script>
 </head>
 <body>
     <!-- <header>BLACKJACK</header> -->
     <main>
-        <section id="blackjack-table">
-            <div id="d-cards">
+        <section class="blackjack-table">
+            <div class="d-cards">
                 <div class="placeholder"></div>
             </div>
-            <div id="card-deck">
-                <div id="deck-placeholder"></div>
+            <div class="card-deck">
+                <div class="card back-blue"></div>
             </div>
-            <div id="p-cards">
+            <div class="p-cards">
                 <div class="placeholder"></div>
             </div>
-            <div id="buttons">BUTTONS</div>
+            <div class="buttons">
+                <button class="pturn-buttons">hit</button>
+                <button class="pturn-buttons">stand</button>
+                <button class="game-buttons">reset game</button>
+            </div>
         </section>
     </main>
 </body>

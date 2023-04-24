@@ -1,13 +1,13 @@
 * {
     box-sizing: border-box;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 body {
     height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    overflow-x:hidden;
+    /* overflow-x:hidden; */
 }
 
 main {
@@ -15,7 +15,7 @@ main {
     justify-content: center;
 }
 
-#blackjack-table {
+.blackjack-table {
     display: grid;
     height: 100vh;
     background-color: green;
@@ -24,37 +24,47 @@ main {
     /* grid-template-area: ; */
 }
 
-#d-cards, #p-cards {
+.d-cards, .p-cards {
     display: flex;
     grid-column: 2;
     justify-content: center;
 }
 
-#card-deck {
+.card-deck {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .placeholder {
-    height: 30vmin;
-    width: 20vmin;
+    height: 25vmin;
+    width: 15vmin;
     border-radius: 5%;
     align-self: center;
     border: .5vmin solid white;
 }
 
-#deck-placeholder {
-    height: 30vmin;
-    width: 20vmin;
+/* #deck-placeholder {
+    height: 25vmin;
+    width: 15vmin;
     border-radius: 5%;
     align-self: center;
     border: .5vmin solid white;
+    background-image: url("../images/backs/blue.svg");
     background-color: darkred;
+} */
+
+.buttons {
+    grid-column: span 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#buttons {
-    grid-column: span 3;
+.pturn-buttons, .game-buttons {
+    margin: 1vmin;
+    padding: 1vmin;
+    letter-spacing: .2vmin;
 }
 
 /* header {

@@ -9,6 +9,8 @@
   font-size: inherit;
   width: 4.0em;
   height: 5.5em;
+  /* height: 25vmin;
+    width: 15vmin; */
   /* Add a default background color and border. */
   background-color: #fff;
   border-radius: 0.20em;
