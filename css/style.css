@@ -36,29 +36,11 @@ main {
     align-items: center;
 }
 
-/* .placeholder {
-    height: 25vmin;
-    width: 15vmin;
-    border-radius: 5%;
-    align-self: center;
-    border: .5vmin solid white;
-} */
-
 .scores {
     margin: 5vmin;
     grid-column: 1;
     grid-row: 1;
 }
-
-/* #deck-placeholder {
-    height: 25vmin;
-    width: 15vmin;
-    border-radius: 5%;
-    align-self: center;
-    border: .5vmin solid white;
-    background-image: url("../images/backs/blue.svg");
-    background-color: darkred;
-} */
 
 .buttons {
     grid-column: span 3;
@@ -71,10 +53,6 @@ button:hover {
     background-color: lightgray;
 }
 
-.hide {
-    visibility: hidden;
-}
-
 .pturn-buttons, .game-buttons {
     margin: 1vmin;
     padding: 1vmin;
@@ -84,7 +62,3 @@ button:hover {
 .disable {
     pointer-events: none;
 }
-/* header {
-    height: 10vh;
-    font-size: 9vmin;
-} */

@@ -20,7 +20,7 @@ const dealCardsBtn = document.getElementById('deal')
 /*----- event listeners -----*/
 document.getElementById('reset').addEventListener('click', resetGame)
 dealCardsBtn.addEventListener('click', dealCards)
-// document.getElementById('hit').addEventListener('click', addCardToHand)    
+document.getElementById('hit').addEventListener('click', addCardToHand)    
 // document.getElementById('stand').addEventListener('click', insertFunctionHere) 
 
 /*----- functions -----*/
@@ -61,20 +61,6 @@ function shuffleCards() {
     shuffledDeck = [...tempDeck]
 }
 
-// function dealCards() {
-//     for (let i = 0; i < 2; i++) {
-//         playerHand.push(shuffledDeck[0])
-//         document.getElementById('p-one').classList.add(`${shuffledDeck[0]}`)
-//         shuffledDeck.shift()
-//         dealerHand.push(shuffledDeck[0])
-//         document.getElementById('d-one').classList.add(`${shuffledDeck[0]}`)
-//         shuffledDeck.shift()
-//     }
-//     dealCardsBtn.classList.add('disable')
-//     console.log(playerHand)
-//     console.log(dealerHand)
-// }
-
 function dealCards() {
     for (let i = 0; i < 1; i++) {
         playerHand.push(shuffledDeck[0])
@@ -102,22 +88,35 @@ function resetGame() {
     document.getElementById('d-one').className = 'card'
     document.getElementById('p-two').className = 'card'
     document.getElementById('d-two').className = 'card'
+    const newCards = document.querySelectorAll('.new-card')
+    newCards.forEach(card => {
+        card.remove()
+    })
     init()
 }
 
-// function addCardToHand() {
-//     let newCard = document.createElement('div').innerHTML = '<div class="card"></div>'
-//     playerHand.push(shuffledDeck[0])
-//     shuffledDeck.shift()
-//     render()
-//     console.log(playerHand)
-//     return newCard
-// }
+function addCardToHand() {
+    let newCard = document.createElement('div')
+    newCard.classList.add('card', 'new-card')
+    newCard.classList.add(`${shuffledDeck[0]}`)
+    playerHand.push(`${shuffledDeck[0]}`)
+    shuffledDeck.shift()
+    playerCards.append(newCard)
+    console.log(playerHand)
+}
 
 function render() {
     renderCards()
     renderScores()
+    renderTotals()
     renderMessages()
+}
+
+// INCOMPLETE
+function renderTotals() {
+    
+    document.getElementById('p-total').innerText = `Total: `
+    document.getElementById('d-total').innerText = `Total: `
 }
 
 function renderCards() {
