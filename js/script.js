@@ -1,6 +1,6 @@
 /*----- constants -----*/
 const suits = ['s', 'c', 'd', 'h']
-const ranks = ['02', '03', '04', '05', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A']
 
 /*----- state variables -----*/
 let playerHand
@@ -49,6 +49,7 @@ function createDeck() {
     })
 }
 
+// Fisher-Yates Shuffle Algorithm
 function shuffleCards() {
     let tempDeck = [...deck]
     for (let i = tempDeck.length - 1; i > 0; i--) {
@@ -60,16 +61,38 @@ function shuffleCards() {
     shuffledDeck = [...tempDeck]
 }
 
+// function dealCards() {
+//     for (let i = 0; i < 2; i++) {
+//         playerHand.push(shuffledDeck[0])
+//         document.getElementById('p-one').classList.add(`${shuffledDeck[0]}`)
+//         shuffledDeck.shift()
+//         dealerHand.push(shuffledDeck[0])
+//         document.getElementById('d-one').classList.add(`${shuffledDeck[0]}`)
+//         shuffledDeck.shift()
+//     }
+//     dealCardsBtn.classList.add('disable')
+//     console.log(playerHand)
+//     console.log(dealerHand)
+// }
+
 function dealCards() {
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 1; i++) {
         playerHand.push(shuffledDeck[0])
+        document.getElementById('p-one').classList.add(`${shuffledDeck[0]}`)
         shuffledDeck.shift()
         dealerHand.push(shuffledDeck[0])
+        document.getElementById('d-one').classList.add('back-blue')
+        shuffledDeck.shift()
+        playerHand.push(shuffledDeck[0])
+        document.getElementById('p-two').classList.add(`${shuffledDeck[0]}`)
+        shuffledDeck.shift()
+        dealerHand.push(shuffledDeck[0])
+        document.getElementById('d-two').classList.add(`${shuffledDeck[0]}`)
         shuffledDeck.shift()
     }
     dealCardsBtn.classList.add('disable')
-    console.log(playerHand)
-    console.log(dealerHand)
+    console.log('player hand - ' + playerHand)
+    console.log('dealer hand - ' + dealerHand)
 }
 
 function render() {
