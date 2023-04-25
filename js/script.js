@@ -18,9 +18,9 @@ const scores = document.querySelector('h3')
 const dealCardsBtn = document.getElementById('deal')
 
 /*----- event listeners -----*/
-document.getElementById('reset').addEventListener('click', init)
+document.getElementById('reset').addEventListener('click', resetGame)
 dealCardsBtn.addEventListener('click', dealCards)
-// document.getElementById('hit').addEventListener('click', insertFunctionHere)    
+// document.getElementById('hit').addEventListener('click', addCardToHand)    
 // document.getElementById('stand').addEventListener('click', insertFunctionHere) 
 
 /*----- functions -----*/
@@ -93,7 +93,26 @@ function dealCards() {
     dealCardsBtn.classList.add('disable')
     console.log('player hand - ' + playerHand)
     console.log('dealer hand - ' + dealerHand)
+    render()
 }
+
+function resetGame() {
+    // TODO: - Make it remove all the current cards on the table
+    document.getElementById('p-one').className = 'card'
+    document.getElementById('d-one').className = 'card'
+    document.getElementById('p-two').className = 'card'
+    document.getElementById('d-two').className = 'card'
+    init()
+}
+
+// function addCardToHand() {
+//     let newCard = document.createElement('div').innerHTML = '<div class="card"></div>'
+//     playerHand.push(shuffledDeck[0])
+//     shuffledDeck.shift()
+//     render()
+//     console.log(playerHand)
+//     return newCard
+// }
 
 function render() {
     renderCards()
