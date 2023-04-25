@@ -73,35 +73,34 @@ function dealCards() {
     console.log(shuffledDeck)
 }
 
-// function dealCards() {
-//     for (let i = 0; i < 2; i++) {
-//         playerHand.push(shuffledDeck[0])
-//         dealerHand.push(shuffledDeck[1])
-//         shuffledDeck.splice(0, 2)
-//     }
-//     console.log(playerHand)
-//     console.log(dealerHand)
-//     console.log(shuffledDeck)
-// }
-
-// function calcHandValues() {
-//     if (playerHand[0].value + playerHand[1].value === 21) {
-//         if (dealerHand[0].value + dealerHand[1].value !== 21) {
-//             winner = 'player'
-//         } else if (dealerHand[0].value + dealerHand[1].value === 21) {
-//             if (playerHand[0].value + playerHand[1].value !== 21) {
-//                 winner = 'dealer'
-//             } else if ()
-//         }
-//     }
-// }
-
 function calcHandValues(hand) {
     let sum = 0
     hand.forEach(card => {
         sum += card.value
     })
     return sum
+}
+
+function checkWinner() {
+    let playerScore = calcHandValues(playerHand)
+    let dealerScore = calcHandValues(dealerHand)
+    console.log(playerScore)
+    console.log(dealerScore)
+    if (playerScore === 21 && playerHand.length === 2) {
+        return winner = 'player blackjack'
+    } else if (dealerScore === 21 && dealerHand.length === 2) {
+        return winner = "dealer blackjack"
+    } else if (playerScore > 21) {
+        return winner = 'bust dealer wins'
+    } else if (dealerScore > 21) {
+        return winner = 'bust player wins'
+    } else if (playerScore > dealerScore) {
+        return winner = 'player'
+    } else if (dealerScore > playerScore) {
+        return winner = 'dealer'
+    } else if (playerScore === dealerScore) {
+        return winner = 'push'
+    } 
 }
 
 function resetGame() {
@@ -117,15 +116,15 @@ function resetGame() {
     init()
 }
 
-// function addCardToHand() {
-//     let newCard = document.createElement('div')
-//     newCard.classList.add('card', 'new-card')
-//     newCard.classList.add(`${shuffledDeck[0]}`)
-//     playerHand.push(`${shuffledDeck[0]}`)
-//     shuffledDeck.shift()
-//     playerCards.append(newCard)
-//     console.log(playerHand)
-// }
+function addCardToHand() {
+    let newCard = document.createElement('div')
+    newCard.classList.add('card', 'new-card')
+    newCard.classList.add(`${shuffledDeck[0]}`)
+    playerHand.push(`${shuffledDeck[0]}`)
+    shuffledDeck.shift()
+    playerCards.append(newCard)
+    console.log(playerHand)
+}
 
 function render() {
     renderCards()
