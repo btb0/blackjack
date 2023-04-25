@@ -5,7 +5,6 @@ const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', '
 /*----- state variables -----*/
 let playerHand
 let dealerHand
-let cardCountValues
 let deck
 let shuffledDeck
 let turn
@@ -30,11 +29,7 @@ function init() {
     playerHand = []
     dealerHand = []
     deck = []
-    cardCountValues = {
-        player: 0,
-        dealer: 0
-    }
-    winner = false
+    winner = ''
     dealCardsBtn.classList.remove('disable')
     createDeck()
     shuffleCards()
@@ -69,13 +64,44 @@ function shuffleCards() {
 
 function dealCards() {
     for (let i = 0; i < 2; i++) {
-        playerHand.push(`${shuffledDeck[0]}`)
-        dealerHand.push(`${shuffledDeck[1]}`)
+        playerHand.push(shuffledDeck[0])
+        dealerHand.push(shuffledDeck[1])
         shuffledDeck.splice(0, 2)
     }
     console.log(playerHand)
     console.log(dealerHand)
     console.log(shuffledDeck)
+}
+
+// function dealCards() {
+//     for (let i = 0; i < 2; i++) {
+//         playerHand.push(shuffledDeck[0])
+//         dealerHand.push(shuffledDeck[1])
+//         shuffledDeck.splice(0, 2)
+//     }
+//     console.log(playerHand)
+//     console.log(dealerHand)
+//     console.log(shuffledDeck)
+// }
+
+// function calcHandValues() {
+//     if (playerHand[0].value + playerHand[1].value === 21) {
+//         if (dealerHand[0].value + dealerHand[1].value !== 21) {
+//             winner = 'player'
+//         } else if (dealerHand[0].value + dealerHand[1].value === 21) {
+//             if (playerHand[0].value + playerHand[1].value !== 21) {
+//                 winner = 'dealer'
+//             } else if ()
+//         }
+//     }
+// }
+
+function calcHandValues(hand) {
+    let sum = 0
+    hand.forEach(card => {
+        sum += card.value
+    })
+    return sum
 }
 
 function resetGame() {
@@ -91,15 +117,15 @@ function resetGame() {
     init()
 }
 
-function addCardToHand() {
-    let newCard = document.createElement('div')
-    newCard.classList.add('card', 'new-card')
-    newCard.classList.add(`${shuffledDeck[0]}`)
-    playerHand.push(`${shuffledDeck[0]}`)
-    shuffledDeck.shift()
-    playerCards.append(newCard)
-    console.log(playerHand)
-}
+// function addCardToHand() {
+//     let newCard = document.createElement('div')
+//     newCard.classList.add('card', 'new-card')
+//     newCard.classList.add(`${shuffledDeck[0]}`)
+//     playerHand.push(`${shuffledDeck[0]}`)
+//     shuffledDeck.shift()
+//     playerCards.append(newCard)
+//     console.log(playerHand)
+// }
 
 function render() {
     renderCards()
@@ -117,7 +143,7 @@ function renderTotals() {
 
 function renderCards() {
     playerHand.forEach(card => {
-        
+        playerHand.classList.add(`${playerHand[card].face}`)
     })
     // dealCardsBtn.classList.add('disable')
 }
