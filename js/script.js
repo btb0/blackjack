@@ -44,7 +44,13 @@ function init() {
 function createDeck() {
     suits.forEach(suit => {
         ranks.forEach(rank => {
-            deck.push(`${suit}${rank}`)
+            deck.push({
+                // Maps to CSS classes for cards
+                face: `${suit}${rank}`,
+                // Setting the values -> Number value = 02-10; if rank = A, it is 
+                // an ace so value = 11, otherwise its a face card so value = 10
+                value: Number(rank) || (rank === 'A' ? 11 : 10)
+            })
         })
     })
 }
@@ -62,24 +68,14 @@ function shuffleCards() {
 }
 
 function dealCards() {
-    for (let i = 0; i < 1; i++) {
-        playerHand.push(shuffledDeck[0])
-        document.getElementById('p-one').classList.add(`${shuffledDeck[0]}`)
-        shuffledDeck.shift()
-        dealerHand.push(shuffledDeck[0])
-        document.getElementById('d-one').classList.add('back-blue')
-        shuffledDeck.shift()
-        playerHand.push(shuffledDeck[0])
-        document.getElementById('p-two').classList.add(`${shuffledDeck[0]}`)
-        shuffledDeck.shift()
-        dealerHand.push(shuffledDeck[0])
-        document.getElementById('d-two').classList.add(`${shuffledDeck[0]}`)
-        shuffledDeck.shift()
+    for (let i = 0; i < 2; i++) {
+        playerHand.push(`${shuffledDeck[0]}`)
+        dealerHand.push(`${shuffledDeck[1]}`)
+        shuffledDeck.splice(0, 2)
     }
-    dealCardsBtn.classList.add('disable')
-    console.log('player hand - ' + playerHand)
-    console.log('dealer hand - ' + dealerHand)
-    render()
+    console.log(playerHand)
+    console.log(dealerHand)
+    console.log(shuffledDeck)
 }
 
 function resetGame() {
@@ -120,7 +116,10 @@ function renderTotals() {
 }
 
 function renderCards() {
-
+    playerHand.forEach(card => {
+        
+    })
+    // dealCardsBtn.classList.add('disable')
 }
 
 function renderScores() {
