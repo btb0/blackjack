@@ -75,11 +75,33 @@ function dealCards() {
 
 function calcHandValues(hand) {
     let sum = 0
+    let aces = 0
     hand.forEach(card => {
         sum += card.value
+        if (card.face[1] === 'A') {
+            aces += 1
+        }
     })
+    while (sum > 21 && aces) {
+        sum -= 10
+        aces -= 1
+    }
     return sum
 }
+
+// function calcHandValues(hand) {
+//     let sum = 0
+//     hand.forEach(card => {
+//         console.log(card.face)
+//         sum += card.value
+//         if (card.face[1] === 'A') {
+//             let ace = card
+//             ace.value = '01'
+            
+//         }
+//     })
+//     return sum
+// }
 
 function checkWinner() {
     let playerScore = calcHandValues(playerHand)
