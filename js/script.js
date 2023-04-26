@@ -71,6 +71,7 @@ function dealCards() {
     console.log(playerHand)
     console.log(dealerHand)
     console.log(shuffledDeck)
+    render()
 }
 
 function calcHandValues(hand) {
@@ -87,21 +88,8 @@ function calcHandValues(hand) {
         aces -= 1
     }
     return sum
+    render()
 }
-
-// function calcHandValues(hand) {
-//     let sum = 0
-//     hand.forEach(card => {
-//         console.log(card.face)
-//         sum += card.value
-//         if (card.face[1] === 'A') {
-//             let ace = card
-//             ace.value = '01'
-            
-//         }
-//     })
-//     return sum
-// }
 
 function checkWinner() {
     let playerScore = calcHandValues(playerHand)
@@ -127,14 +115,14 @@ function checkWinner() {
 
 function resetGame() {
     // TODO: - Make it remove all the current cards on the table
-    document.getElementById('p-one').className = 'card'
-    document.getElementById('d-one').className = 'card'
-    document.getElementById('p-two').className = 'card'
-    document.getElementById('d-two').className = 'card'
-    const newCards = document.querySelectorAll('.new-card')
-    newCards.forEach(card => {
-        card.remove()
-    })
+    // document.getElementById('p-one').className = 'card'
+    // document.getElementById('d-one').className = 'card'
+    // document.getElementById('p-two').className = 'card'
+    // document.getElementById('d-two').className = 'card'
+    // const newCards = document.querySelectorAll('.new-card')
+    // newCards.forEach(card => {
+    //     card.remove()
+    // })
     init()
 }
 
@@ -157,14 +145,22 @@ function render() {
 
 // INCOMPLETE
 function renderTotals() {
-    
-    document.getElementById('p-total').innerText = `Total: `
-    document.getElementById('d-total').innerText = `Total: `
+    let playerScore = calcHandValues(playerHand)
+    let dealerScore = calcHandValues(dealerHand)
+    document.getElementById('p-total').innerText = `Total: ${playerScore}`
+    document.getElementById('d-total').innerText = `Total: ${dealerScore}`
 }
 
 function renderCards() {
     playerHand.forEach(card => {
-        playerHand.classList.add(`${playerHand[card].face}`)
+        let newCard = document.createElement('div')
+        newCard.classList.add('card', `${card.face}`)
+        playerCards.append(newCard)
+    })
+    dealerHand.forEach(card => {
+        let newCard = document.createElement('div')
+        newCard.classList.add('card', `${card.face}`)
+        dealerCards.append(newCard)
     })
     // dealCardsBtn.classList.add('disable')
 }
