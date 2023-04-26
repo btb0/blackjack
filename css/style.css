@@ -58,7 +58,3 @@ button:hover {
     padding: 1vmin;
     letter-spacing: .2vmin;
 }
-
-.disable {
-    pointer-events: none;
-}

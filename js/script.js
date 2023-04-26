@@ -15,12 +15,14 @@ const dealerCards = document.getElementById('d-cards')
 const playerCards = document.getElementById('p-cards')
 const scores = document.querySelector('h3')
 const dealCardsBtn = document.getElementById('deal')
+const standBtn = document.getElementById('stand')
+const hitBtn = document.getElementById('hit')
 
 /*----- event listeners -----*/
 document.getElementById('reset').addEventListener('click', resetGame)
 dealCardsBtn.addEventListener('click', dealCards)
-document.getElementById('hit').addEventListener('click', addCard)    
-// document.getElementById('stand').addEventListener('click', insertFunctionHere) 
+hitBtn.addEventListener('click', addCard)    
+standBtn.addEventListener('click', endTurn) 
 
 /*----- functions -----*/
 init ()
@@ -30,6 +32,7 @@ function init() {
     dealerHand = []
     deck = []
     winner = ''
+    turn = true
     dealCardsBtn.classList.remove('disable')
     createDeck()
     shuffleCards()
@@ -71,6 +74,7 @@ function dealCards() {
     console.log(playerHand)
     console.log(dealerHand)
     console.log(shuffledDeck)
+    dealCardsBtn.disabled = true
     render()
 }
 
@@ -115,14 +119,9 @@ function checkWinner() {
 
 function resetGame() {
     // TODO: - Make it remove all the current cards on the table
-    // document.getElementById('p-one').className = 'card'
-    // document.getElementById('d-one').className = 'card'
-    // document.getElementById('p-two').className = 'card'
-    // document.getElementById('d-two').className = 'card'
-    // const newCards = document.querySelectorAll('.new-card')
-    // newCards.forEach(card => {
-    //     card.remove()
-    // })
+    // while (playerCards.firstChild) {
+    //     playerCards.removeChild(playerCards.lastChild)
+    // }
     init()
 }
 
@@ -130,11 +129,42 @@ function resetGame() {
 function addCard() {
     playerHand.push(shuffledDeck[0])
     let newCard = document.createElement('div')
-    newCard.classList.add('card', playerHand[playerHand.length - 1].face)
     playerCards.append(newCard)
     shuffledDeck.shift()
     console.log(playerHand)
     console.log(shuffledDeck)
+}
+
+// Stand
+function endTurn() {
+    standBtn.disabled = true
+    hitBtn.disabled = true
+    turn = false
+    // calculates how many aces are in the dealers hand
+    let aces = 0
+    dealerHand.forEach(card => {
+        if (card.face[1] === 'A') {
+            aces += 1
+        }
+    })
+    //calculates the value of the cards in the dealer's hand
+    let dealerScore = calcHandValues(dealerHand)
+    console.log(dealerScore)
+    // while the dealers score is either less than or equal to 16, or 17 with an Ace in their hand (soft 17), add another card to their hand.
+    while (dealerScore <= 16 || (dealerScore < 22 && dealerScore === 17 && aces)) {
+        dealerHand.push(shuffledDeck[0])
+        dealerScore = calcHandValues(dealerHand)
+        let card = document.createElement('div')
+        card.classList.add('card', dealerHand[dealerHand.length - 1].face)
+        dealerCards.append(card)
+        shuffledDeck.shift()
+        //break if their hand value totals to 21, or surpasses 21 - bust
+        if (dealerScore >= 21) {
+            break
+        }
+        console.log(dealerScore)
+    }
+    checkWinner()
 }
 
 function render() {
@@ -152,11 +182,14 @@ function renderTotals() {
     document.getElementById('d-total').innerText = `Total: ${dealerScore}`
 }
 
-// function renderCards(hand) {
-//     hand.forEach(card => {
-//         let newCard = document.createElement('div')
-//         newCard.classList.add('card', `${card.face}`)
-//         figureOutWhatToPutHereBecauseIdkHowToAppendToBothContainers.append(newCard)
+// function renderCards() {
+//     const bothHands = [playerHand, dealerHand]
+//     bothHands.forEach(hand => {
+//         hand.forEach(card => {
+//             let newCard = document.createElement('div')
+//             newCard.classList.add('card', card.face)
+//             hand === playerHand ? playerCards.append(newCard) : dealerCards.append(newCard)
+//         })
 //     })
 // }
 
@@ -170,8 +203,9 @@ function renderCards() {
         let newCard = document.createElement('div')
         newCard.classList.add('card', card.face)
         dealerCards.append(newCard)
+        let firstCard = document.querySelector('#d-cards > div')
+        firstCard.classList.add('back-blue')
     })
-    // dealCardsBtn.classList.add('disable')
 }
 
 function renderScores() {
