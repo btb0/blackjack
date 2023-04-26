@@ -19,7 +19,7 @@ const dealCardsBtn = document.getElementById('deal')
 /*----- event listeners -----*/
 document.getElementById('reset').addEventListener('click', resetGame)
 dealCardsBtn.addEventListener('click', dealCards)
-document.getElementById('hit').addEventListener('click', addCardToHand)    
+document.getElementById('hit').addEventListener('click', addCard)    
 // document.getElementById('stand').addEventListener('click', insertFunctionHere) 
 
 /*----- functions -----*/
@@ -126,14 +126,15 @@ function resetGame() {
     init()
 }
 
-function addCardToHand() {
+// Hit
+function addCard() {
+    playerHand.push(shuffledDeck[0])
     let newCard = document.createElement('div')
-    newCard.classList.add('card', 'new-card')
-    newCard.classList.add(`${shuffledDeck[0]}`)
-    playerHand.push(`${shuffledDeck[0]}`)
-    shuffledDeck.shift()
+    newCard.classList.add('card', playerHand[playerHand.length - 1].face)
     playerCards.append(newCard)
+    shuffledDeck.shift()
     console.log(playerHand)
+    console.log(shuffledDeck)
 }
 
 function render() {
@@ -143,7 +144,7 @@ function render() {
     renderMessages()
 }
 
-// INCOMPLETE
+// INCOMPLETE, i think?
 function renderTotals() {
     let playerScore = calcHandValues(playerHand)
     let dealerScore = calcHandValues(dealerHand)
@@ -151,15 +152,23 @@ function renderTotals() {
     document.getElementById('d-total').innerText = `Total: ${dealerScore}`
 }
 
+// function renderCards(hand) {
+//     hand.forEach(card => {
+//         let newCard = document.createElement('div')
+//         newCard.classList.add('card', `${card.face}`)
+//         figureOutWhatToPutHereBecauseIdkHowToAppendToBothContainers.append(newCard)
+//     })
+// }
+
 function renderCards() {
     playerHand.forEach(card => {
         let newCard = document.createElement('div')
-        newCard.classList.add('card', `${card.face}`)
+        newCard.classList.add('card', card.face)
         playerCards.append(newCard)
     })
     dealerHand.forEach(card => {
         let newCard = document.createElement('div')
-        newCard.classList.add('card', `${card.face}`)
+        newCard.classList.add('card', card.face)
         dealerCards.append(newCard)
     })
     // dealCardsBtn.classList.add('disable')
