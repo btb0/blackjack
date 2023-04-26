@@ -33,7 +33,6 @@ function init() {
     deck = []
     winner = ''
     turn = true
-    dealCardsBtn.classList.remove('disable')
     createDeck()
     shuffleCards()
     render()
@@ -67,13 +66,11 @@ function shuffleCards() {
 
 function dealCards() {
     for (let i = 0; i < 2; i++) {
-        playerHand.push(shuffledDeck[0])
-        dealerHand.push(shuffledDeck[1])
-        shuffledDeck.splice(0, 2)
+        playerHand.push(shuffledDeck.shift())
+        dealerHand.push(shuffledDeck.shift())
+        // shuffledDeck.splice(0, 2)
     }
-    console.log(playerHand)
-    console.log(dealerHand)
-    console.log(shuffledDeck)
+    console.log('dealer flipped cards value -> ' + dealerHand[0].value)
     dealCardsBtn.disabled = true
     render()
 }
@@ -119,20 +116,25 @@ function checkWinner() {
 
 function resetGame() {
     // TODO: - Make it remove all the current cards on the table
-    // while (playerCards.firstChild) {
-    //     playerCards.removeChild(playerCards.lastChild)
-    // }
+    while (playerCards.firstChild) {
+        playerCards.removeChild(playerCards.lastChild)
+    }
+    while (dealerCards.firstChild) {
+        dealerCards.removeChild(dealerCards.lastChild)
+    }
     init()
 }
 
 // Hit
 function addCard() {
-    playerHand.push(shuffledDeck[0])
+    playerHand.push(shuffledDeck.shift())
     let newCard = document.createElement('div')
     playerCards.append(newCard)
-    shuffledDeck.shift()
+    // shuffledDeck.shift()
     console.log(playerHand)
-    console.log(shuffledDeck)
+    console.log('new card is -> ' + playerHand[playerHand.length - 1].face)
+    // console.log(shuffledDeck)
+    // render()
 }
 
 // Stand
@@ -151,13 +153,13 @@ function endTurn() {
     let dealerScore = calcHandValues(dealerHand)
     console.log(dealerScore)
     // while the dealers score is either less than or equal to 16, or 17 with an Ace in their hand (soft 17), add another card to their hand.
-    while (dealerScore <= 16 || (dealerScore < 22 && dealerScore === 17 && aces)) {
-        dealerHand.push(shuffledDeck[0])
+    while (dealerScore <= 16 || (dealerScore === 17 && aces)) {
+        dealerHand.push(shuffledDeck.shift())
         dealerScore = calcHandValues(dealerHand)
         let card = document.createElement('div')
         card.classList.add('card', dealerHand[dealerHand.length - 1].face)
         dealerCards.append(card)
-        shuffledDeck.shift()
+        // shuffledDeck.shift()
         //break if their hand value totals to 21, or surpasses 21 - bust
         if (dealerScore >= 21) {
             break
@@ -170,16 +172,17 @@ function endTurn() {
 function render() {
     renderCards()
     renderScores()
+    renderControls()
     renderTotals()
     renderMessages()
 }
 
 // INCOMPLETE, i think?
 function renderTotals() {
-    let playerScore = calcHandValues(playerHand)
-    let dealerScore = calcHandValues(dealerHand)
-    document.getElementById('p-total').innerText = `Total: ${playerScore}`
-    document.getElementById('d-total').innerText = `Total: ${dealerScore}`
+    // let playerScore = calcHandValues(playerHand)
+    // let dealerScore = calcHandValues(dealerHand)
+    // document.getElementById('p-total').innerText = `Total: ${playerScore}`
+    // document.getElementById('d-total').innerText = `Total: ${dealerScore}`
 }
 
 // function renderCards() {
@@ -194,18 +197,28 @@ function renderTotals() {
 // }
 
 function renderCards() {
-    playerHand.forEach(card => {
-        let newCard = document.createElement('div')
-        newCard.classList.add('card', card.face)
-        playerCards.append(newCard)
-    })
-    dealerHand.forEach(card => {
-        let newCard = document.createElement('div')
-        newCard.classList.add('card', card.face)
-        dealerCards.append(newCard)
-        let firstCard = document.querySelector('#d-cards > div')
-        firstCard.classList.add('back-blue')
-    })
+    // if (playerHand.length === 2) {
+        playerHand.forEach(card => {
+            let newCard = document.createElement('div')
+            newCard.classList.add('card', card.face)
+            playerCards.append(newCard)
+        })
+        dealerHand.forEach(card => {
+            let newCard = document.createElement('div')
+            newCard.classList.add('card', card.face)
+            dealerCards.append(newCard)
+            let firstCard = document.querySelector('#d-cards > div')
+            firstCard.classList.add('back-blue')
+        })
+    // } 
+}
+
+function renderControls() {
+    while (!turn) {
+        standBtn.disabled = true
+        hitBtn.disabled = true
+        
+    }
 }
 
 function renderScores() {
@@ -213,5 +226,27 @@ function renderScores() {
 }
 
 function renderMessages() {
-
+    switch (winner) {
+        case 'player blackjack':
+            alert('player wins by blackjack')
+            break
+        case 'dealer blackjack':
+            alert('dealer wins by blackjack')
+            break
+        case 'bust dealer wins':
+            alert('Player busts, dealer wins')
+            break
+        case 'bust player wins':
+            alert('dealer busts, player wins')
+            break
+        case 'player':
+            alert('player wins')
+            break
+        case 'dealer':
+            alert('dealer wins')
+            break
+        default: 
+        // do nothing - game in progress
+        break;
+    }
 }
