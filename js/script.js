@@ -33,6 +33,9 @@ function init() {
     deck = []
     winner = ''
     turn = true
+    standBtn.disabled = false
+    hitBtn.disabled = false
+    dealCardsBtn.disabled = false
     createDeck()
     shuffleCards()
     render()
@@ -88,29 +91,36 @@ function calcHandValues(hand) {
         aces -= 1
     }
     return sum
-    render()
 }
 
 function checkWinner() {
     let playerScore = calcHandValues(playerHand)
     let dealerScore = calcHandValues(dealerHand)
-    console.log(playerScore)
+    console.log(playerScore > 21)
     console.log(dealerScore)
     if (playerScore === 21 && playerHand.length === 2) {
-        return winner = 'player blackjack'
-    } else if (dealerScore === 21 && dealerHand.length === 2) {
-        return winner = "dealer blackjack"
-    } else if (playerScore > 21) {
-        return winner = 'bust dealer wins'
-    } else if (dealerScore > 21) {
-        return winner = 'bust player wins'
-    } else if (playerScore > dealerScore) {
-        return winner = 'player'
-    } else if (dealerScore > playerScore) {
-        return winner = 'dealer'
-    } else if (playerScore === dealerScore) {
-        return winner = 'push'
-    } 
+        winner = 'player blackjack'
+    }
+    if (dealerScore === 21 && dealerHand.length === 2) {
+        winner = "dealer blackjack"
+    }
+    if (playerScore > 21) {
+        winner = 'bust dealer wins'
+    }
+    if (dealerScore > 21) {
+        winner = 'bust player wins'
+    }
+    if (playerScore > dealerScore) {
+        winner = 'player'
+    }
+    if (dealerScore > playerScore) {
+        winner = 'dealer'
+    }
+    if (playerScore === dealerScore) {
+        winner = 'push'
+    }
+    console.log('winner', winner)
+    render() 
 }
 
 function resetGame() {
@@ -138,8 +148,6 @@ function addCard() {
 
 // Stand
 function endTurn() {
-    standBtn.disabled = true
-    hitBtn.disabled = true
     turn = false
     // calculates how many aces are in the dealers hand
     let aces = 0
@@ -148,6 +156,7 @@ function endTurn() {
             aces += 1
         }
     })
+    console.log('++++++=')
     //calculates the value of the cards in the dealer's hand
     let dealerScore = calcHandValues(dealerHand)
     // while the dealers score is either less than or equal to 16, or 17 with an Ace in their hand (soft 17), add another card to their hand.
@@ -163,23 +172,24 @@ function endTurn() {
             break
         }
     }
+    console.log('-----------')
     checkWinner()
 }
 
 function render() {
     renderCards()
-    renderScores()
+    // renderScores()
     renderControls()
-    renderTotals()
+    // renderTotals()
     renderMessages()
 }
 
 // INCOMPLETE, i think?
 function renderTotals() {
-    // let playerScore = calcHandValues(playerHand)
-    // let dealerScore = calcHandValues(dealerHand)
-    // document.getElementById('p-total').innerText = `Total: ${playerScore}`
-    // document.getElementById('d-total').innerText = `Total: ${dealerScore}`
+    let playerScore = calcHandValues(playerHand)
+    let dealerScore = calcHandValues(dealerHand)
+    document.getElementById('p-total').innerText = `Total: ${playerScore}`
+    document.getElementById('d-total').innerText = `Total: ${dealerScore}`
 }
 
 // function renderCards() {
@@ -208,17 +218,19 @@ function renderCards() {
             let firstCard = document.querySelector('#d-cards > div')
             firstCard.classList.add('back-blue')
         })
-
+        console.log('render cards')
 }
 
 function renderControls() {
-    while (!turn) {
+    console.log('turn', turn)
+    if (!turn) {
         standBtn.disabled = true
         hitBtn.disabled = true
     }
     if (playerHand.length !== 0) {
         dealCardsBtn.disabled = true
     }
+    console.log('turn after ')
 }
 
 function renderScores() {
@@ -226,6 +238,7 @@ function renderScores() {
 }
 
 function renderMessages() {
+    console.log(winner)
     switch (winner) {
         case 'player blackjack':
             alert('player wins by blackjack')
