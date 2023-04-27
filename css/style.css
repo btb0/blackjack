@@ -59,11 +59,17 @@ button:hover {
 }
 
 h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 3vmin;
     margin: 5vmin;
-    width: 16vmin;
-    height: 16vmin;
+    width: 20vmin;
+    height: 20vmin;
     grid-row: span 3;
+    /* border: 1px solid white; */
+    padding: 2vmin;
+    border-radius: 20%;
 }
 
 p {
@@ -79,4 +85,8 @@ h2 {
     grid-column: 2;
     height: 3.5vmin;
     margin: 1vmin;
+}
+
+.card {
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }

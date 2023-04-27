@@ -244,7 +244,6 @@ function renderControls() {
     if (playerHand.length !== 0) {
         dealCardsBtn.disabled = true
         deckBtn.removeEventListener('click', dealCards)
-        // deckBtn.removeEventListener('click', dealCards)
     } else {
         dealCardsBtn.disabled = false
         deckBtn.addEventListener('click', dealCards)
