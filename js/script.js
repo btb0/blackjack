@@ -1,6 +1,10 @@
 /*----- constants -----*/
 const suits = ['s', 'c', 'd', 'h']
 const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A']
+const wins = {
+    player: 0,
+    dealer: 0
+}
 
 /*----- state variables -----*/
 let playerHand
@@ -33,10 +37,6 @@ function init() {
     dealerHand = []
     deck = []
     winner = ''
-    wins = {
-        player: 0,
-        dealer: 0
-    }
     turn = true
     standBtn.disabled = false
     hitBtn.disabled = false
@@ -105,27 +105,32 @@ function checkWinner() {
     // console.log(playerScore > 21)
     console.log(dealerScore, turn)
     if (turn) {
-        if (playerScore === 21) {
-            if (dealerScore === 21) {
+        if (playerScore === 21 && playerHand.length === 2) {
+            if (dealerScore === 21 && dealerHand.length === 2) {
                 winner = "push"
             } else {
                 winner = 'player blackjack'
+                wins.player += 1
             }
-        } else if (dealerScore === 21) {
+        } else if (dealerScore === 21 && dealerHand.length === 2) {
             winner = 'dealer blackjack'
+            wins.dealer += 1
         } 
         if (playerScore > 21) {
             winner = 'bust dealer wins'
+            wins.dealer += 1
         }
     } else {
         if (dealerScore > 21) {
             winner = 'bust player wins'
-        }
-        if (playerScore > dealerScore) {
+            wins.player += 1
+        } else if (playerScore > dealerScore) {
             winner = 'player'
+            wins.player += 1
         }
         if (dealerScore > playerScore) {
             winner = 'dealer'
+            wins.dealer += 1
         }
         if (playerScore === dealerScore) {
             winner = 'push'
@@ -241,7 +246,7 @@ function renderCards() {
 
 function renderControls() {
     console.log('turn', turn)
-    if (!turn) {
+    if (!turn || winner) {
         standBtn.disabled = true
         hitBtn.disabled = true
     }
