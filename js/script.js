@@ -77,7 +77,6 @@ function dealCards() {
         playerHand.push(shuffledDeck.shift())
         dealerHand.push(shuffledDeck.shift())
     }
-    console.log('dealer flipped cards value -> ' + dealerHand[0].value)
     checkWinner()
     render()
 }
@@ -101,8 +100,6 @@ function calcHandValues(hand) {
 function checkWinner() {
     let playerScore = calcHandValues(playerHand)
     let dealerScore = calcHandValues(dealerHand)
-    // console.log(playerScore > 21)
-    console.log(dealerScore, turn)
     if (turn) {
         if (playerScore === 21 && playerHand.length === 2) {
             if (dealerScore === 21 && dealerHand.length === 2) {
@@ -135,12 +132,10 @@ function checkWinner() {
             winner = 'push'
         }
     }    
-    console.log('winner', winner)
     render() 
 }
 
 function resetGame() {
-    // TODO: - Make it remove all the current cards on the table
     while (playerCards.firstChild) {
         playerCards.removeChild(playerCards.lastChild)
     }
@@ -155,10 +150,6 @@ function addCard() {
     playerHand.push(shuffledDeck.shift())
     let newCard = document.createElement('div')
     playerCards.append(newCard)
-    // shuffledDeck.shift()
-    console.log(playerHand)
-    console.log('new card is -> ' + playerHand[playerHand.length - 1].face)
-    // console.log(shuffledDeck)
     checkWinner()
     render()
 }
@@ -173,7 +164,6 @@ function endTurn() {
             aces += 1
         }
     })
-    console.log('++++++=')
     //calculates the value of the cards in the dealer's hand
     let dealerScore = calcHandValues(dealerHand)
     // while the dealers score is either less than or equal to 16, or 17 with an Ace in their hand (soft 17), add another card to their hand.
@@ -183,13 +173,11 @@ function endTurn() {
         let card = document.createElement('div')
         card.classList.add('card', dealerHand[dealerHand.length - 1].face)
         dealerCards.append(card)
-        // shuffledDeck.shift()
         //break if their hand value totals to 21, or surpasses 21 - bust
         if (dealerScore >= 21) {
             break
         }
     }
-    console.log('-----------')
     checkWinner()
 }
 
@@ -201,7 +189,6 @@ function render() {
     renderMessages()
 }
 
-// INCOMPLETE, i think?
 function renderTotals() {
     let playerScore = calcHandValues(playerHand)
     let dealerScore = calcHandValues(dealerHand)
@@ -230,16 +217,13 @@ function renderCards() {
             let firstCard = document.querySelector('#d-cards > div')
             firstCard.classList.add('back-blue')
         })
-        console.log('render cards')
         if (!turn || winner) {
             let flippedCard = document.getElementsByClassName('back-blue')
-            console.log(flippedCard)
             flippedCard[0].classList.remove('back-blue')
         }
 }
 
 function renderControls() {
-    console.log('turn', turn)
     if (!turn || winner) {
         standBtn.disabled = true
         hitBtn.disabled = true
@@ -259,39 +243,30 @@ function renderControls() {
     } else {
         resetBtn.disabled = false
     }
-    console.log('turn after ')
 }
 
-// maybe make a clear scores button that resets scores back to zero
 function renderScores() {
     scores.innerHTML = `Player: ${wins.player} <br><br> Dealer: ${wins.dealer}`
 }
 
 function renderMessages() {
-    console.log("winner = ", winner)
     switch (winner) {
         case 'player blackjack':
-            // alert('player wins by blackjack')
             winnerMsg.innerText = 'Player Wins with Blackjack!'
             break
         case 'dealer blackjack':
-            // alert('dealer wins by blackjack')
             winnerMsg.innerText = 'Dealer Wins with Blackjack!'
             break
         case 'bust dealer wins':
-            // alert('Player busts, dealer wins')
             winnerMsg.innerText = 'Bust! Dealer Wins'
             break
         case 'bust player wins':
-            // alert('dealer busts, player wins')
             winnerMsg.innerText = 'Bust! Player Wins'
             break
         case 'player':
-            // alert('player wins')
             winnerMsg.innerText = 'Player Wins!'
             break
         case 'dealer':
-            // alert('dealer wins')
             winnerMsg.innerText = 'Dealer Wins!'
             break
         case 'push':
