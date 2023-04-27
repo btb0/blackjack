@@ -1,6 +1,7 @@
 /*----- constants -----*/
 const suits = ['s', 'c', 'd', 'h']
 const ranks = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A']
+// Wins count does not reset with reset button
 const wins = {
     player: 0,
     dealer: 0
@@ -77,7 +78,6 @@ function dealCards() {
     for (let i = 0; i < 2; i++) {
         playerHand.push(shuffledDeck.shift())
         dealerHand.push(shuffledDeck.shift())
-        // shuffledDeck.splice(0, 2)
     }
     console.log('dealer flipped cards value -> ' + dealerHand[0].value)
     checkWinner()
@@ -125,11 +125,11 @@ function checkWinner() {
         if (dealerScore > 21) {
             winner = 'bust player wins'
             wins.player += 1
-        } else if (playerScore > dealerScore) {
+        } else if (playerScore > dealerScore && playerScore <= 21) {
             winner = 'player'
             wins.player += 1
         }
-        if (dealerScore > playerScore) {
+        if (dealerScore > playerScore && dealerScore <= 21) {
             winner = 'dealer'
             wins.dealer += 1
         }
@@ -211,17 +211,6 @@ function renderTotals() {
     document.getElementById('d-total').innerText = `Total: ${dealerScore}`
 }
 
-// function renderCards() {
-//     const bothHands = [playerHand, dealerHand]
-//     bothHands.forEach(hand => {
-//         hand.forEach(card => {
-//             let newCard = document.createElement('div')
-//             newCard.classList.add('card', card.face)
-//             hand === playerHand ? playerCards.append(newCard) : dealerCards.append(newCard)
-//         })
-//     })
-// }
-
 function renderCards() {
     playerCards.innerHTML = ''
     dealerCards.innerHTML = ''
@@ -288,6 +277,9 @@ function renderMessages() {
         case 'dealer':
             // alert('dealer wins')
             winnerMsg.innerText = 'Dealer Wins'
+            break
+        case 'push':
+            winnerMsg.innerText = 'Push'
             break
         default: 
         // do nothing - game in progress
