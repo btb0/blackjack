@@ -12,7 +12,10 @@ body {
 .blackjack-table {
     display: grid;
     height: 100vh;
-    background-color: green;
+    background: radial-gradient(circle at 50% 50%, #007700 0%, #006600 30%, #005500 50%, #004400 70%, #003300 100%);
+    /* background: radial-gradient(circle at 50% 50%, #0077be, #005e9c, #004e7d); */
+    /* background: radial-gradient(circle at 50% 50%, #a20000, #910000, #800000); */
+    /* background: radial-gradient(circle at 50% 50%, #444444, #333333, #222222); */
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr .1fr 1fr .2fr;
 }

@@ -24,11 +24,11 @@ const dealCardsBtn = document.getElementById('deal')
 const standBtn = document.getElementById('stand')
 const hitBtn = document.getElementById('hit')
 const deckBtn = document.getElementById('deck')
+const resetBtn = document.getElementById('reset')
 
 /*----- event listeners -----*/
-document.getElementById('reset').addEventListener('click', resetGame)
+resetBtn.addEventListener('click', resetGame)
 dealCardsBtn.addEventListener('click', dealCards)
-deckBtn.addEventListener('click', dealCards)
 hitBtn.addEventListener('click', addCard)    
 standBtn.addEventListener('click', endTurn) 
 
@@ -40,11 +40,7 @@ function init() {
     dealerHand = []
     deck = []
     winner = ''
-    winnerMsg.innerText = ''
     turn = true
-    standBtn.disabled = false
-    hitBtn.disabled = false
-    dealCardsBtn.disabled = false
     createDeck()
     shuffleCards()
     render()
@@ -201,7 +197,7 @@ function render() {
     renderCards()
     renderScores()
     renderControls()
-    // renderTotals()
+    renderTotals()
     renderMessages()
 }
 
@@ -241,10 +237,22 @@ function renderControls() {
     if (!turn || winner) {
         standBtn.disabled = true
         hitBtn.disabled = true
+    } else {
+        standBtn.disabled = false
+        hitBtn.disabled = false
     }
     if (playerHand.length !== 0) {
         dealCardsBtn.disabled = true
+        deckBtn.removeEventListener('click', dealCards)
         // deckBtn.removeEventListener('click', dealCards)
+    } else {
+        dealCardsBtn.disabled = false
+        deckBtn.addEventListener('click', dealCards)
+    }
+    if (!winner) {
+        resetBtn.disabled = true
+    } else {
+        resetBtn.disabled = false
     }
     console.log('turn after ')
 }
@@ -287,5 +295,8 @@ function renderMessages() {
         default: 
         // do nothing - game in progress
         break
+    }
+    if (!winner) {
+        winnerMsg.innerText = ''
     }
 }
