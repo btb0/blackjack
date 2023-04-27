@@ -205,8 +205,14 @@ function render() {
 function renderTotals() {
     let playerScore = calcHandValues(playerHand)
     let dealerScore = calcHandValues(dealerHand)
+    if (!dealCardsBtn.disabled) {
+        document.getElementById('d-total').innerText = 'Total: 0'
+    } else if (!winner) {
+        document.getElementById('d-total').innerText = 'Total: ?'
+    } else {
+        document.getElementById('d-total').innerText = `Total: ${dealerScore}`
+    }
     document.getElementById('p-total').innerText = `Total: ${playerScore}`
-    document.getElementById('d-total').innerText = `Total: ${dealerScore}`
 }
 
 function renderCards() {
