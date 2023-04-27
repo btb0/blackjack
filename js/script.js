@@ -37,6 +37,7 @@ function init() {
     dealerHand = []
     deck = []
     winner = ''
+    winnerMsg.innerText = ''
     turn = true
     standBtn.disabled = false
     hitBtn.disabled = false
@@ -237,7 +238,7 @@ function renderCards() {
             firstCard.classList.add('back-blue')
         })
         console.log('render cards')
-        if (!turn) {
+        if (!turn || winner) {
             let flippedCard = document.getElementsByClassName('back-blue')
             console.log(flippedCard)
             flippedCard[0].classList.remove('back-blue')
@@ -266,21 +267,27 @@ function renderMessages() {
     switch (winner) {
         case 'player blackjack':
             // alert('player wins by blackjack')
+            winnerMsg.innerText = 'Player Wins with Blackjack!'
             break
         case 'dealer blackjack':
             // alert('dealer wins by blackjack')
+            winnerMsg.innerText = 'Dealer Wins with Blackjack!'
             break
         case 'bust dealer wins':
             // alert('Player busts, dealer wins')
+            winnerMsg.innerText = 'Bust! Dealer Wins'
             break
         case 'bust player wins':
             // alert('dealer busts, player wins')
+            winnerMsg.innerText = 'Bust! Player Wins'
             break
         case 'player':
             // alert('player wins')
+            winnerMsg.innerText = 'Player Wins'
             break
         case 'dealer':
             // alert('dealer wins')
+            winnerMsg.innerText = 'Dealer Wins'
             break
         default: 
         // do nothing - game in progress
