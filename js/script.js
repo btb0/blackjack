@@ -71,7 +71,6 @@ function dealCards() {
         // shuffledDeck.splice(0, 2)
     }
     console.log('dealer flipped cards value -> ' + dealerHand[0].value)
-    dealCardsBtn.disabled = true
     render()
 }
 
@@ -134,7 +133,7 @@ function addCard() {
     console.log(playerHand)
     console.log('new card is -> ' + playerHand[playerHand.length - 1].face)
     // console.log(shuffledDeck)
-    // render()
+    render()
 }
 
 // Stand
@@ -151,7 +150,6 @@ function endTurn() {
     })
     //calculates the value of the cards in the dealer's hand
     let dealerScore = calcHandValues(dealerHand)
-    console.log(dealerScore)
     // while the dealers score is either less than or equal to 16, or 17 with an Ace in their hand (soft 17), add another card to their hand.
     while (dealerScore <= 16 || (dealerScore === 17 && aces)) {
         dealerHand.push(shuffledDeck.shift())
@@ -164,7 +162,6 @@ function endTurn() {
         if (dealerScore >= 21) {
             break
         }
-        console.log(dealerScore)
     }
     checkWinner()
 }
@@ -197,7 +194,8 @@ function renderTotals() {
 // }
 
 function renderCards() {
-    // if (playerHand.length === 2) {
+    playerCards.innerHTML = ''
+    dealerCards.innerHTML = ''
         playerHand.forEach(card => {
             let newCard = document.createElement('div')
             newCard.classList.add('card', card.face)
@@ -210,14 +208,16 @@ function renderCards() {
             let firstCard = document.querySelector('#d-cards > div')
             firstCard.classList.add('back-blue')
         })
-    // } 
+
 }
 
 function renderControls() {
     while (!turn) {
         standBtn.disabled = true
         hitBtn.disabled = true
-        
+    }
+    if (playerHand.length !== 0) {
+        dealCardsBtn.disabled = true
     }
 }
 
@@ -247,6 +247,6 @@ function renderMessages() {
             break
         default: 
         // do nothing - game in progress
-        break;
+        break
     }
 }
