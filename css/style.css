@@ -6,7 +6,9 @@
 body {
     height: 100vh;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    /* font-family: 'Sen', sans-serif; */
+    font-family: 'Raleway Dots', cursive, sans-serif;
     margin: 0;
 }
 
@@ -46,14 +48,18 @@ button {
 }
 
 button:hover {
-    background-color: lightgray;
-    transform: scale(1.1);
-}
+    transform: scale(1.15);
+    box-shadow: rgba(0, 255, 200, 1.0) 0px 15px 180px 4px, 
+
+      rgba(255, 255, 255, 0.7) 0px 0px 1010px;
+    transition: all 0.3s ease-in-out;
+  }
 
 .pturn-buttons, .game-buttons {
     margin: 1vmin;
     padding: 1vmin;
     letter-spacing: .2vmin;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
 
 h3 {
@@ -65,17 +71,18 @@ h3 {
     width: 20vmin;
     height: 20vmin;
     grid-row: span 3;
-    /* border: 1px solid white; */
     padding: 2vmin;
     border-radius: 20%;
-    /* background-color: darkgray;
-    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px; */
 }
 
 p {
     font-size: 3vmin;
     margin-top: 3vmin;
-    margin-bottom: 1vmin;
+    margin-bottom: 0;
+}
+
+#d-total {
+    margin-top: 7vmin;
 }
 
 h2 {

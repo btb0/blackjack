@@ -288,14 +288,14 @@ function renderMessages() {
             break
         case 'player':
             // alert('player wins')
-            winnerMsg.innerText = 'Player Wins'
+            winnerMsg.innerText = 'Player Wins!'
             break
         case 'dealer':
             // alert('dealer wins')
-            winnerMsg.innerText = 'Dealer Wins'
+            winnerMsg.innerText = 'Dealer Wins!'
             break
         case 'push':
-            winnerMsg.innerText = 'Push'
+            winnerMsg.innerText = 'Push ):'
             break
         default: 
         // do nothing - game in progress
