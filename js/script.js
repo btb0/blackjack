@@ -23,10 +23,12 @@ const winnerMsg = document.querySelector('h2')
 const dealCardsBtn = document.getElementById('deal')
 const standBtn = document.getElementById('stand')
 const hitBtn = document.getElementById('hit')
+const deckBtn = document.getElementById('deck')
 
 /*----- event listeners -----*/
 document.getElementById('reset').addEventListener('click', resetGame)
 dealCardsBtn.addEventListener('click', dealCards)
+deckBtn.addEventListener('click', dealCards)
 hitBtn.addEventListener('click', addCard)    
 standBtn.addEventListener('click', endTurn) 
 
@@ -216,12 +218,12 @@ function renderCards() {
     dealerCards.innerHTML = ''
         playerHand.forEach(card => {
             let newCard = document.createElement('div')
-            newCard.classList.add('card', card.face)
+            newCard.classList.add('card', 'xlarge', card.face)
             playerCards.append(newCard)
         })
         dealerHand.forEach(card => {
             let newCard = document.createElement('div')
-            newCard.classList.add('card', card.face)
+            newCard.classList.add('card', 'xlarge', card.face)
             dealerCards.append(newCard)
             let firstCard = document.querySelector('#d-cards > div')
             firstCard.classList.add('back-blue')
@@ -242,6 +244,7 @@ function renderControls() {
     }
     if (playerHand.length !== 0) {
         dealCardsBtn.disabled = true
+        // deckBtn.removeEventListener('click', dealCards)
     }
     console.log('turn after ')
 }
