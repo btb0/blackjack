@@ -14,6 +14,7 @@ let winner
 const dealerCards = document.getElementById('d-cards')
 const playerCards = document.getElementById('p-cards')
 const scores = document.querySelector('h3')
+const winnerMsg = document.querySelector('h2')
 const dealCardsBtn = document.getElementById('deal')
 const standBtn = document.getElementById('stand')
 const hitBtn = document.getElementById('hit')
@@ -32,6 +33,10 @@ function init() {
     dealerHand = []
     deck = []
     winner = ''
+    wins = {
+        player: 0,
+        dealer: 0
+    }
     turn = true
     standBtn.disabled = false
     hitBtn.disabled = false
@@ -74,6 +79,7 @@ function dealCards() {
         // shuffledDeck.splice(0, 2)
     }
     console.log('dealer flipped cards value -> ' + dealerHand[0].value)
+    checkWinner()
     render()
 }
 
@@ -96,29 +102,35 @@ function calcHandValues(hand) {
 function checkWinner() {
     let playerScore = calcHandValues(playerHand)
     let dealerScore = calcHandValues(dealerHand)
-    console.log(playerScore > 21)
-    console.log(dealerScore)
-    if (playerScore === 21 && playerHand.length === 2) {
-        winner = 'player blackjack'
-    }
-    if (dealerScore === 21 && dealerHand.length === 2) {
-        winner = "dealer blackjack"
-    }
-    if (playerScore > 21) {
-        winner = 'bust dealer wins'
-    }
-    if (dealerScore > 21) {
-        winner = 'bust player wins'
-    }
-    if (playerScore > dealerScore) {
-        winner = 'player'
-    }
-    if (dealerScore > playerScore) {
-        winner = 'dealer'
-    }
-    if (playerScore === dealerScore) {
-        winner = 'push'
-    }
+    // console.log(playerScore > 21)
+    console.log(dealerScore, turn)
+    if (turn) {
+        if (playerScore === 21) {
+            if (dealerScore === 21) {
+                winner = "push"
+            } else {
+                winner = 'player blackjack'
+            }
+        } else if (dealerScore === 21) {
+            winner = 'dealer blackjack'
+        } 
+        if (playerScore > 21) {
+            winner = 'bust dealer wins'
+        }
+    } else {
+        if (dealerScore > 21) {
+            winner = 'bust player wins'
+        }
+        if (playerScore > dealerScore) {
+            winner = 'player'
+        }
+        if (dealerScore > playerScore) {
+            winner = 'dealer'
+        }
+        if (playerScore === dealerScore) {
+            winner = 'push'
+        }
+    }    
     console.log('winner', winner)
     render() 
 }
@@ -143,6 +155,7 @@ function addCard() {
     console.log(playerHand)
     console.log('new card is -> ' + playerHand[playerHand.length - 1].face)
     // console.log(shuffledDeck)
+    checkWinner()
     render()
 }
 
@@ -178,7 +191,7 @@ function endTurn() {
 
 function render() {
     renderCards()
-    // renderScores()
+    renderScores()
     renderControls()
     // renderTotals()
     renderMessages()
@@ -219,6 +232,11 @@ function renderCards() {
             firstCard.classList.add('back-blue')
         })
         console.log('render cards')
+        if (!turn) {
+            let flippedCard = document.getElementsByClassName('back-blue')
+            console.log(flippedCard)
+            flippedCard[0].classList.remove('back-blue')
+        }
 }
 
 function renderControls() {
@@ -233,30 +251,31 @@ function renderControls() {
     console.log('turn after ')
 }
 
+// maybe make a clear scores button that resets scores back to zero
 function renderScores() {
-
+    scores.innerHTML = `Player: ${wins.player} <br><br> Dealer: ${wins.dealer}`
 }
 
 function renderMessages() {
-    console.log(winner)
+    console.log("winner = ", winner)
     switch (winner) {
         case 'player blackjack':
-            alert('player wins by blackjack')
+            // alert('player wins by blackjack')
             break
         case 'dealer blackjack':
-            alert('dealer wins by blackjack')
+            // alert('dealer wins by blackjack')
             break
         case 'bust dealer wins':
-            alert('Player busts, dealer wins')
+            // alert('Player busts, dealer wins')
             break
         case 'bust player wins':
-            alert('dealer busts, player wins')
+            // alert('dealer busts, player wins')
             break
         case 'player':
-            alert('player wins')
+            // alert('player wins')
             break
         case 'dealer':
-            alert('dealer wins')
+            // alert('dealer wins')
             break
         default: 
         // do nothing - game in progress
