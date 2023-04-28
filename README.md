@@ -19,7 +19,9 @@ Blackjack is a combination of both strategy and luck. The game is played as so:
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Player Win Screenshot](photos/player-win.png)
+![Blackjack Screenshot](photos/blackjack.png)
+![Start Screenshot](photos/start.png)
 
 
 ## Technologies Used
